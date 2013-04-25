@@ -346,9 +346,6 @@
 .tlypageguide-open #tlyPageGuideWrapper .tlypageguide_toggle div span {
   margin: 0;
 }
-.tlypageguide-open .tlypageguide_shadow:after {
-  display: block;
-}
 #tlyPageGuideWelcome {
   display: none;
   filter: alpha(opacity=0);
