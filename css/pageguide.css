@@ -121,7 +121,7 @@
   line-height: 50px;
   min-height: 0px;
   max-height: 0px;
-  position: absolute;
+  position: fixed;
   text-align: center;
   width: 50px;
   z-index: 5000;
