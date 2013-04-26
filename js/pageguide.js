@@ -348,7 +348,8 @@ tl.pg.PageGuide.prototype.setup_handlers = function () {
     }
 
     /* register resize callback */
-    jQuery(window).resize(function() { that.position_tour(); });
+    jQuery(window).on('resize', function() { that.position_tour(); });
+    jQuery(window).on('scroll', function() { that.position_tour(); });
 };
 
 tl.pg.PageGuide.prototype.show_message = function (new_index, left) {
