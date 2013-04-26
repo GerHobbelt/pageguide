@@ -309,26 +309,46 @@ tl.pg.PageGuide.prototype.setup_handlers = function () {
         that.show_message(new_index);
     });
 
+    var goForward = function () {
+            var new_index = (that.cur_idx + 1) % that.$items.length;
+
+            that.track_event('PG.fwd');
+            that.show_message(new_index);
+
+            return false;
+        },
+        goBack = function () {
+            /*
+             * If -n < x < 0, then the result of x % n will be x, which is
+             * negative. To get a positive remainder, compute (x + n) % n.
+             */
+            var new_index = (that.cur_idx + that.$items.length - 1) % that.$items.length;
+
+            that.track_event('PG.back');
+            that.show_message(new_index, true);
+
+            return false;
+        }, onKeyDown = function(e) {
+            if (e.keyCode === 27) {
+                //escape key pressed
+                that.close();
+            } else if(e.keyCode === 37) {
+                goBack();
+            } else if (e.keyCode === 39 || e.keyCode === 13) {
+                goForward();
+            }
+        };
+
+    if (window.addEventListener) {
+        window.addEventListener('keydown', onKeyDown, true);
+    } else if (document.attachEvent) { //IE
+        document.attachEvent('onkeydown', onKeyDown);
+    }
+
     /* interaction: fwd/back click */
-    this.$fwd.on('click', function() {
-        var new_index = (that.cur_idx + 1) % that.$items.length;
+    this.$fwd.on('click', goForward);
+    this.$back.on('click', goBack);
 
-        that.track_event('PG.fwd');
-        that.show_message(new_index);
-        return false;
-    });
-
-    this.$back.on('click', function() {
-        /*
-         * If -n < x < 0, then the result of x % n will be x, which is
-         * negative. To get a positive remainder, compute (x + n) % n.
-         */
-        var new_index = (that.cur_idx + that.$items.length - 1) % that.$items.length;
-
-        that.track_event('PG.back');
-        that.show_message(new_index, true);
-        return false;
-    });
 
     if (this.$welcome.length) {
         if (this.$welcome.find('.tlypageguide_ignore').length) {
