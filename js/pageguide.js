@@ -283,7 +283,7 @@ tl.pg.PageGuide.prototype.setup_handlers = function () {
                     jQuery('.tlypageguide_toggle', this.$base) : 
                     jQuery(that.custom_open_button);
     interactor.on('click', function() {
-        if (this.is_open) {
+        if (that.is_open) {
             that.close();
         } else if (that.preferences.show_welcome &&
                   !that.preferences.check_welcome_dismissed() &&
@@ -329,13 +329,15 @@ tl.pg.PageGuide.prototype.setup_handlers = function () {
 
             return false;
         }, onKeyDown = function(e) {
-            if (e.keyCode === 27) {
-                //escape key pressed
-                that.close();
-            } else if(e.keyCode === 37) {
-                goBack();
-            } else if (e.keyCode === 39 || e.keyCode === 13) {
-                goForward();
+            if (that.is_open) {
+                if (e.keyCode === 27) {
+                    //escape key pressed
+                    that.close();
+                } else if(e.keyCode === 37) {
+                    goBack();
+                } else if (e.keyCode === 39 || e.keyCode === 13) {
+                    goForward();
+                }
             }
         };
 
