@@ -1,0 +1,10 @@
+{
+  "name": "pageguide",
+  "version": "1.0.0",
+  "devDependencies": {
+    "uglify-js": "*"
+  },
+  "scripts": {
+    "uglifyjs": "./node_modules/.bin/uglifyjs js/pageguide.js -o js/pageguide.min.js"
+  }
+}
